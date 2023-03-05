@@ -7,6 +7,7 @@ const api = require('./routes/index.js');
 const app = express();
 
 app.use(express.json()) // for parsing application/json
+//app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 // GET Route for homepage
 app.get('/notes', (req, res) =>
