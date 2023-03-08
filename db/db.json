@@ -1,11 +1,1 @@
-{
-    "notes" :
-        [
-            {
-                "title":"Test Title",
-                "text":"Test text",
-                "id":"0"
-            }
-        ],
-        "nextID" : 1
-}
+{"notes":[{"title":"Test Title","text":"Test text","id":"0"},{"title":"tristan was here","text":"hi","id":1}],"nextID":2}

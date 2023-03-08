@@ -1,26 +1,20 @@
 const express = require('express');
 const path = require('path');
-const api = require('./routes/index.js');
+//const api = require('./routes/index.js');
 
 var fs = require('fs');
-const generateMarkdown = require('./utils/generateMarkdown');
+//const generateMarkdown = require('./utils/generateMarkdown');
 
 const PORT = process.env.PORT || 3001; //allows heroku
 
 const app = express();
 
+app.use(express.static('public'));
+
 app.use(express.json()) // for parsing application/json
-//app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-// GET Route for homepage
-app.get('/notes', (req, res) =>
-    res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-// GET Route for feedback page
-app.get('*', (req, res) =>
-    res.sendFile(path.join(__dirname, '/public/index.html'))
-);
 
 // Wildcard route to direct users to a 404 page
 app.get('/api/notes', (req, res) => {
@@ -29,9 +23,10 @@ app.get('/api/notes', (req, res) => {
 }
 );
 
-app.post('/api/notes', (req, res) => 
-    addNote(req.body),
+app.post('/api/notes', (req, res) => {
+    addNote(req.body)
     res.json(req.body)
+}
 );
 
 //making a function to
@@ -57,6 +52,16 @@ function addNote(note)
     writeFile(data); //saves the updated database
 }
 
+// GET Route for homepage
+app.get('/notes', (req, res) =>
+    res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
+
+// GET Route for feedback page
+app.get('*', (req, res) =>
+    res.sendFile(path.join(__dirname, '/public/index.html'))
+); // needs to be at bottom to not overwrite due to *
+
 app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
+console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
