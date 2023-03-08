@@ -5,7 +5,7 @@ const api = require('./routes/index.js');
 var fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
 
-//const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001; //allows heroku
 
 const app = express();
 
@@ -56,3 +56,7 @@ function addNote(note)
     data.notes.push(note);
     writeFile(data); //saves the updated database
 }
+
+app.listen(PORT, () =>
+  console.log(`App listening at http://localhost:${PORT} 🚀`)
+);
