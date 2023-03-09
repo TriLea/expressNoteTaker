@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-//const api = require('./routes/index.js');
+//const api = require('./index.js');
 
 var fs = require('fs');
 //const generateMarkdown = require('./utils/generateMarkdown');
@@ -9,12 +9,10 @@ const PORT = process.env.PORT || 3001; //allows heroku
 
 const app = express();
 
-app.use(express.static('public'));
-
 app.use(express.json()) // for parsing application/json
-
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+app.use(express.static('public'));
 
 // Wildcard route to direct users to a 404 page
 app.get('/api/notes', (req, res) => {
